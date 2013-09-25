@@ -1,0 +1,32 @@
+config terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+R3(config)#no router bgp 100
+% AS number mismatch
+R3(config)#no router bgp 200
+% AS number mismatch
+R3(config)#no router bgp 300
+R3(config)#no route-map community
+% This object doesn't exist
+R3(config)#no router bgp 70001
+% Unknown object, configure first
+R3(config)#no router bgp 70002
+% Unknown object, configure first
+R3(config)#no bgp extended-asn-cap
+% Extended asn capability is not enabled
+R3(config)#exit
+R3#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+R3(config)#   
+R3(config)#inter Ethernet28
+R3(config-if)#   
+R3(config-if)#no switchport
+% Can't set port to router port.
+R3(config-if)#   
+R3(config-if)#ip address 20.1.1.2/24
+R3(config-if)#   
+R3(config-if)#exit
+R3(config)#
+show ip bgp
+
+R3#   
+R3#

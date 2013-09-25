@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testCases>
+	<testCase>
+    <equipments>
+    	<equipment>
+        	<equip-id>1</equip-id>
+        	<config-info>
+            	<loopback>1.1.1.1</loopback>
+            	<ports-conf>
+                	<port>
+                    	<port-number>s0/0/0</port-number>
+                    	<port-ip>192.168.2.1</port-ip>
+                    	<port-mask>255.255.255.0</port-mask>
+                    	<clock-rate>9600</clock-rate>
+                	</port>
+            	</ports-conf>
+            	<confs>
+            	<conf>
+            		<protocol>ospf</protocol>
+            		<commands>
+            			<command>ospf 100</command>
+            			<command>setOspfNetwork 192.168.2.0 255.255.255.0 0</command>
+            		</commands>
+            	</conf>
+            	</confs>
+        	</config-info>
+    	</equipment>
+    	<equipment>
+        	<equip-id>2</equip-id>
+        	<config-info>
+            	<loopback>2.2.2.2</loopback>
+            	<ports-conf>
+                	<port>
+                    	<port-number>s0/0/0</port-number>
+                    	<port-ip>192.168.2.2</port-ip>
+                    	<port-mask>255.255.255.0</port-mask>
+                    	<clock-rate>9600</clock-rate>
+                	</port>
+            	</ports-conf>
+            	<confs>
+            	<conf>
+            		<protocol>ospf</protocol>
+            		<commands>
+            			<command>ospf 100</command>
+            			<command>setOspfNetwork 192.168.2.0 255.255.255.0 0</command>
+            		</commands>
+            	</conf>
+            	</confs>
+        	</config-info>
+    	</equipment>
+    </equipments>
+    <tests>
+        <test id="1">
+        	<equip-id>1</equip-id>
+        	<commands>
+    			<command>VerifyIpRoute</command>
+    		</commands>
+    		<expects>
+    			<expect>C    192.168.2.0/24 is directly connected, Serial0/0/0</expect> 
+    		</expects>	
+        </test>  
+        <test id="2">
+        	<equip-id>2</equip-id>
+        	<commands>
+            	<command>VerifyIpRoute</command>
+            </commands>
+            <expects>
+            	<expect>C    192.168.2.0/24 is directly connected, Serial0/0/0</expect>
+            </expects>
+        </test>   
+    </tests>
+	</testCase>
+</testCases>

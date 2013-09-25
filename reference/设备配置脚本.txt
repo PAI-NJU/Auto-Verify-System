@@ -1,0 +1,104 @@
+################################################################################
+#Name: sendCmd
+#Description: send a command to a telnet session 
+#Input: spawnId cmd [timeOut 20]
+#Output: None
+#Return: PASS/{FAIL "xxx"}
+#History: zhanglangchong 07/20/2005 creation script
+#Example: sendCmd 1024 "con t" 20
+################################################################################
+proc sendCmd {spawnId cmd {timeOut 60}} {
+   global expect_out buffer
+   set reslist ""
+   
+   after [expr 0*1000]
+
+   if [catch {set spawn_id $spawnId} err] {   
+       puts "ERROR !! set spawn_id fail"   
+       return 0
+   }
+   
+   if [catch {exp_pid -i $spawn_id} err] {      
+       puts "ERROR !! set spawn_id fail"  
+       return 0
+   }
+   
+   match_max 10000 
+   set timeout $timeOut
+   set send_slow {10 .01}
+   
+   #clear buffer
+   expect -i $spawn_id "*"  
+   set buffer "" 
+   set expect_out(buffer) ""
+
+   if [catch {send -s "$cmd\r"} err] {      
+      set reslist FAIL
+      lappend reslist $err   
+      return $reslist
+   }
+  
+   expect {
+      -i $spawn_id 
+       "(Q to quit)" {
+            set send_slow {10 .1}
+            append buffer "$expect_out(buffer)"
+            send -s  " "
+            exp_continue
+          }   
+       "(y\/n)" {
+            set send_slow {10 .1}
+            append buffer "$expect_out(buffer)"
+            send -s  "y\r "
+            exp_continue
+          }
+
+       "More" {
+            set send_slow {10 .1}
+            append buffer "$expect_out(buffer)"
+            send -s  " "
+            exp_continue
+          }
+  
+       "Transfer timed out" {
+            #logMsg  "$expect_out(buffer)"
+            append buffer "$expect_out(buffer)"
+            set reslist FAIL
+            lappend reslist "send command $cmd fail:Transfer timed out"
+            return $reslist
+       }
+       "\#" {
+            append buffer "$expect_out(buffer)"
+            set reslist PASS
+       }
+
+       "\(config" {
+            append buffer "$expect_out(buffer)"
+            set reslist PASS
+       }
+       
+       timeout   {   
+            append buffer "$expect_out(buffer)"
+            set reslist TIMEOUT         
+        }
+
+        eof { 
+           return 1      
+           
+        }   
+   }
+
+   #the following is used to ensure we can get correct CLI output 
+   send "   \n"
+   expect "\#"
+   append buffer "$expect_out(buffer)"
+
+   send "   \n"
+   expect "\#"
+
+   append buffer "$expect_out(buffer)"
+   lappend reslist $buffer
+   return $reslist
+ 
+   
+}

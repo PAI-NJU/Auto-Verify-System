@@ -1,0 +1,15 @@
+TEST EQUIPMENT ID:3
+TEST EQUIPMENT INFO:9.111.71.33  /
+
+COMMAND: show ip bgp
+FAILURED TEST POINT 1:   EXPECT RESULT: 123
+
+ACTUAL RESULT: show ip bgp
+
+R3#   
+R3#
+-----------------------------------------------------
+TEST RESULT :FAILURE
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testCases>
+	<testCase>
+		<equipments>
+			<equipment>
+				<equip-id>1</equip-id>
+				<conf-commands>
+					<command>configure terminal</command>
+					<command>inter Ethernet23</command>
+					<command>no switchport</command>
+					<command>ip address 10.1.1.1/24</command>
+					<command>exit</command>
+					<command>router bgp 100</command>
+					<command>confederation identifier 400</command>
+					<command>confederation peers 200</command>
+					<command>neighbor 10.1.1.2 remote-as 200</command>
+					<command>address-family ipv4 unicast</command>
+				</conf-commands>
+			</equipment>
+			<equipment>
+				<equip-id>2</equip-id>
+				<conf-commands>
+					<command>configure terminal</command>
+					<command>inter Ethernet23</command>
+					<command>no switchport</command>
+					<command>ip address 10.1.1.2/24</command>
+					<command>exit</command>
+					<command>inter Ethernet28</command>
+					<command>no switchport</command>
+					<command>ip address 20.1.1.1/24</command>
+					<command>exit</command>
+					<command>router bgp 200</command>
+					<command>confederation identifier 400</command>
+					<command>confederation peers 100</command>
+					<command>neighbor 10.1.1.1 remote-as 100</command>
+					<command>address-family ipv4 unicast</command>
+					<command>exit</command>
+					<command>exit</command>
+					<command>neighbor 20.1.1.2 remote-as 300</command>
+					<command>address-family ipv4 unicast</command>
+				</conf-commands>
+			</equipment>
+			<equipment>
+				<equip-id>3</equip-id>
+				<conf-commands>
+					<command>configure terminal</command>
+					<command>inter Ethernet28</command>
+					<command>no switchport</command>
+					<command>ip address 20.1.1.2/24</command>
+					<command>exit</command>
+					<command>router bgp 300</command>
+					<command>neighbor 20.1.1.1 remote-as 400</command>
+					<command>address-family ipv4 unicast</command>
+					<command>exit</command>
+					<command>exit</command>
+				</conf-commands>
+				<delay>10</delay>
+			</equipment>
+			<equipment>
+				<equip-id>1</equip-id>
+				<conf-commands>
+					<command>configure terminal</command>
+					<command>router bgp 100</command>
+					<command>address-family ipv4 unicast</command>
+					<command>network 192.168.1.0/24</command>
+				</conf-commands>
+			</equipment>
+			<equipment>
+				<equip-id>3</equip-id>
+				<conf-commands>
+					<command>configure terminal</command>
+					<command>router bgp 300</command>
+					<command>address-family ipv4 unicast</command>
+					<command>network 192.168.2.0/24</command>
+				</conf-commands>
+				<delay>25</delay>
+			</equipment>
+		</equipments>
+		<tests>
+			<test>
+				<equip-id>2</equip-id>
+				<test-command>
+					<command>show ip bgp 192.168.1.0</command>
+					<expects>
+						<expect>\(100\)</expect>
+                        <expect>confed-external</expect>
+					</expects>
+				</test-command>
+				<test-command>
+					<command>show ip bgp 192.168.2.0</command>
+					<expects>
+						<expect>300</expect>
+					</expects>
+				</test-command>
+			</test>
+			<test>
+				<equip-id>3</equip-id>
+				<test-command>
+					<command>show ip bgp 192.168.1.0</command>
+					<expects>
+						<expect>  400\n</expect>
+					</expects>
+				</test-command>
+			</test>
+		</tests>
+	</testCase>
+</testCases>

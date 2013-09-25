@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testCases>
+	<testCase>
+    <equipments>
+    	<equipment>
+        	<equip-id>1</equip-id>
+        	<conf-commands>
+            <command>configure terminal</command>
+     		<command>int s0/0/0</command>
+			<command>ip address 192.168.2.1 255.255.255.0</command>
+			<command>clock rate 9600</command>
+			<command>exit</command>
+			<command>router ospf 100</command>
+			<command>network 192.168.2.0 255.255.255.0 area 0</command>
+			<command delay="50" >exit</command>
+			<command>exit</command>
+        	</conf-commands>
+        	<delay>20</delay>
+    	</equipment>
+    	<equipment>
+        	<equip-id>2</equip-id>
+        	<conf-commands>
+			<command>configure terminal</command>
+			<command>int s0/0/0</command>
+			<command>ip address 192.168.2.2 255.255.255.0</command>
+			<command>clock rate 9600</command>
+			<command>exit</command>
+			<command>router ospf 100</command>
+			<command>network 192.168.2.0 255.255.255.0 area 0</command>
+			<command>exit</command>
+			<command>exit</command>
+        	</conf-commands>
+    	</equipment>
+    </equipments>
+    <tests>
+        <test>
+        	<equip-id>1</equip-id>
+        	<commands>
+    			<command>show ip ospf database</command>
+    		</commands>
+    		<expects>
+    			<expect>OSPF Router with ID.*(192.168.3.1)</expect> 
+    			<expect>192.168.3.1</expect> 
+    		</expects>	
+        </test>  
+        <test name="verify ospf protocol">
+        	<equip-id>2</equip-id>
+        	<commands>
+    			<command>show ip ospf database</command>
+    		</commands>
+    		<expects>
+    			<expect>OSPF Router with ID.*(192.168.3.2)</expect> 
+    			<expect>192.168.3.2</expect> 
+    		</expects>	
+        </test>   
+    </tests>
+	</testCase>
+</testCases>

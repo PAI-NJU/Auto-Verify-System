@@ -1,0 +1,18 @@
+#!/usr/bin/expect --
+# 向远程服务器请求打开一个telnet会话，并等待服务器询问用户名
+spawn telnet 127.0.0.1
+expect "username:"  
+# 输入用户名，并等待服务器询问密码
+send "admin\r"
+expect "Password:"  
+# 输入密码，并等待键入需要运行的命令
+send "admin\r"
+expect "%"  
+# 输入预先定好的密码，等待运行结果
+send "create vlan test\r"
+expect "%"  
+# 将运行结果存入到变量中，显示出来或者写到磁盘中
+set results $expect_out(buffer)  
+# 退出telnet会话，等待服务器的退出提示EOF
+send "exit\r"
+expect eof

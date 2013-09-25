@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<equipments>
+	<equipment>
+		<equip-id>1</equip-id>
+    	<connector-info>
+    		<ip>9.111.71.28</ip>
+    	</connector-info>
+	</equipment>
+	<equipment>
+		<equip-id>2</equip-id>
+		<connector-info>
+    		<ip>9.111.71.29</ip>
+		</connector-info>
+	</equipment>
+	<equipment>
+		<equip-id>3</equip-id>
+		<connector-info>
+    		<ip>9.111.71.33</ip>
+		</connector-info>
+	</equipment>
+</equipments>

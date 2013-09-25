@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<adaptorTable>
+	<protocol>
+		<origin>Exit</origin>
+		<command flag="exit">exit</command>
+	</protocol>
+    <protocol>
+		<origin>Port</origin>
+		<commands>
+			<command flag="config">conf ter</command>
+			<command flag="interface">int val</command>
+			<command flag="ipaddress">ip address val val </command>
+			<command flag="clock">clock rate 9600</command>
+			<command flag="save">no shutdown</command>
+			<command flag="exitInterface">exit</command>
+			<command flag="exitConfig">exit</command>
+		</commands>
+	</protocol>
+	<protocol>
+		<origin>LoopBack</origin>
+		<commands>
+			<command flag="config">conf ter</command>
+			<command flag="interface">int lo0</command>
+			<command flag="loopback">ip address val 255.255.255.0 </command>
+			<command flag="save">no shutdown</command>
+			<command flag="exitInterface">exit</command>
+			<command flag="exitConfig">exit</command>
+		</commands>
+	</protocol>
+    <protocol>
+		<origin>ospf</origin>
+		<commands>
+			<command flag="config">conf ter</command>
+			<command flag="ospf">router ospf val</command>
+			<command flag="setnetwork">network val val area val</command>
+			<command flag="exiputs Router">exit</command>
+			<command flag="exitConfig">exit</command>
+		</commands>
+	</protocol>
+	<protocol>
+		<origin>ospf-rip redistribute</origin>
+		<commands>
+			<command flag="config">conf ter</command>
+			<command flag="ospf">router ospf val</command>
+			<command flag="red-ospf-rip">redistribute rip subnets</command>
+			<command flag="exitRed">exit</command>
+			<command flag="rip">router rip</command>
+			<command flag="ver">ver val</command>
+			<command flag="red-rip-ospf">redistribute ospf val metric val</command>
+			<command flag="exiputs Router">exit</command>
+			<command flag="exitConfig">exit</command>
+		</commands>
+	</protocol>
+	<protocol>
+		<origin>rip</origin>
+		<commands>
+			<command flag="config">conf ter</command>
+			<command flag="rip">router rip</command>
+			<command flag="ver">ver val</command>
+			<command flag="setnetwork">network val </command>
+			<command flag="exiputs Router">exit</command>
+			<command flag="exitConfig">exit</command>
+		</commands>
+	</protocol>
+	<protocol>
+		<origin>VerifyIpRoute</origin>
+		<commands>
+			<command flag="testIpRoute">show ip route</command>
+		</commands>
+	</protocol>
+	<protocol>
+		<origin>VerifyInterface</origin>
+		<commands>
+			<command flag="testInterface">show int</command>
+		</commands>
+	</protocol>
+</adaptorTable>

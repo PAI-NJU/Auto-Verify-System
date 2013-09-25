@@ -1,0 +1,7 @@
+TOTAL TEST:	1
+PASS CASES NUM:	0
+FAILURE CASES NUM:	1
+	
+	
+Item	Name	Result
+1	TestSuite/bgp/4as_path.xml	Fail

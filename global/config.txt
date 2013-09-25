@@ -1,0 +1,13 @@
+#This file is used to clean configurations
+#Please make sure after the configurations are cleaned
+#The mode is exec mode
+config terminal
+no router bgp 100
+no router bgp 200
+no router bgp 300
+no route-map community
+no router bgp 70001
+no router bgp 70002
+no bgp extended-asn-cap
+exit
+

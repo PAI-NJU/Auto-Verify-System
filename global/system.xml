@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<system>
+	<Test-Units>
+		<Test-Unit>
+			<id>Juno</id>
+			<test-path>TestSuite/bgp/4as_path.xml</test-path>
+		</Test-Unit>
+	</Test-Units>
+</system>

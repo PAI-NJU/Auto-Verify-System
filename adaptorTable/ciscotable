@@ -1,0 +1,10 @@
+enable=en
+privilegedmode=config ter
+ospf=router ospf <-val->
+interface=int <-val->
+setnetwork=network <-val-> <-val-> area <-val->
+setintbegin=interface <-val-> 
+setintip=ip address <-val-> <-val->
+setclockrate=clock rate <-val->
+setintend=no shutdown
+exit=exit

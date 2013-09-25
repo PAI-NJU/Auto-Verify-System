@@ -1,0 +1,60 @@
+config terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+R2(config)#no router bgp 100
+% AS number mismatch
+R2(config)#no router bgp 200
+R2(config)#no router bgp 300
+% Unknown object, configure first
+R2(config)#no route-map community
+% This object doesn't exist
+R2(config)#no router bgp 70001
+% Unknown object, configure first
+R2(config)#no router bgp 70002
+% Unknown object, configure first
+R2(config)#no bgp extended-asn-cap
+% Extended asn capability is not enabled
+R2(config)#exit
+R2#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+R2(config)#   
+R2(config)#inter Ethernet23
+R2(config-if)#   
+R2(config-if)#no switchport
+% Can't set port to router port.
+R2(config-if)#   
+R2(config-if)#ip address 10.1.1.2/24
+R2(config-if)#   
+R2(config-if)#exit
+R2(config)#   
+R2(config)#inter Ethernet28
+R2(config-if)#   
+R2(config-if)#no switchport
+% Can't set port to router port.
+R2(config-if)#   
+R2(config-if)#ip address 20.1.1.1/24
+R2(config-if)#   
+R2(config-if)#exit
+R2(config)#   
+R2(config)#router bgp 200
+R2(config-router)#   
+R2(config-router)#neighbor 10.1.1.1 remote-as 23456
+R2(config-router-neighbor)#   
+R2(config-router-neighbor)#address-family ipv4 unicast
+R2(config-router-neighbor-af)#   
+R2(config-router-neighbor-af)#exit
+R2(config-router-neighbor)#   
+R2(config-router-neighbor)#exit
+R2(config-router)#
+show ip bgp summary
+BGP router identifier 10.1.1.2, local AS number 200
+BGP table version is 1
+0 BGP AS-PATH entries
+0 BGP community entries
+
+Neighbor        V    AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
+10.1.1.1        4 23456       2       2        1    0    0 00:00:07        0
+20.1.1.2        4   300       2       3        1    0    0 00:00:05        0
+
+Total number of neighbors 2
+R2#   
+R2#

@@ -1,0 +1,55 @@
+package require Expect 
+global expect_out buffer
+set host    219.219.113.233
+set login_name    IBM
+set login_pwd    BMI
+set localpath "./"              
+set remotepath "./"   
+ set buffer "" 
+   set expect_out(buffer) ""
+set clicks [clock scan "-1 day" -base [clock seconds]]
+set date [clock format $clicks -format "%y-%m-%d"]
+set filename "students_info.xlsx"
+
+spawn  ftp -i $host
+
+expect {
+    timeout                {  }
+    "*name*"
+    "*ÓÃ»§*"
+}
+send "$login_name\r"
+puts "$login_name\r"
+expect {
+    timeout                {  }
+    "assword:"
+}
+send "$login_pwd\r"
+puts "$login_pwd\r"
+expect {
+    timeout                { puts login failed }
+    "assword:"            { puts login failed }
+    "ogin failed"            { puts login failed }
+    "ftp>"
+}
+send "passive\r"
+
+expect "ftp>"
+send "lcd $localpath\r"
+expect "ftp>"
+send "cd $remotepath\r"
+
+expect {
+    timeout                {  }
+    "ftp>"
+}
+send "mget $filename*\r"
+
+expect {
+    timeout                    {  }
+    "ailed to open file"            {  }
+    "ftp>"
+}
+send "bye\r"
+append buffer "$expect_out(buffer)"
+lappend reslist $buffer

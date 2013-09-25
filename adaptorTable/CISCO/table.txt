@@ -1,0 +1,16 @@
+enable=en
+privilegedmode=config ter
+intLoopback=int loopback0
+ospf=router ospf <-val->
+rip=router rip
+ver=ver <-val->
+interface=int <-val->
+setOspfNetwork=network <-val-> <-val-> area <-val->
+setRipNetwork=network <-val->
+setintbegin=interface <-val-> 
+setintip=ip address <-val-> <-val->
+setclockrate=clock rate <-val->
+redistributeRipToOspf=redistribute rip subnets
+redistributeOspfToRip=redistribute ospf <-val-> metric <-val->
+setintend=no shutdown
+exit=exit

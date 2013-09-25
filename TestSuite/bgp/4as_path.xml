@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testCases>
+	<testCase>
+		<equipments>
+			<equipment>
+				<equip-id>1</equip-id>
+				<conf-commands>
+					<command>configure terminal</command>
+					<command>inter Ethernet23</command>
+					<command>no switchport</command>
+					<command>ip address 10.1.1.1/24</command>
+					<command>exit</command>
+					<command>bgp extended-asn-cap</command>
+					<command>router bgp 70001</command>
+					<command>neighbor 10.1.1.2 remote-as 200</command>
+					<command>address-family ipv4 unicast</command>
+					<command>exit</command>
+					<command>exit</command>
+					<command>address-family ipv4 unicast</command>
+					<command>network 192.168.1.0/24</command>
+                    <command>end</command>
+				</conf-commands>
+			</equipment>
+			<equipment>
+				<equip-id>2</equip-id>
+				<conf-commands>
+					<command>configure terminal</command>
+					<command>inter Ethernet23</command>
+					<command>no switchport</command>
+					<command>ip address 10.1.1.2/24</command>
+					<command>exit</command>
+					<command>inter Ethernet28</command>
+					<command>no switchport</command>
+					<command>ip address 20.1.1.1/24</command>
+					<command>exit</command>
+					<command>router bgp 200</command>
+					<command>neighbor 10.1.1.1 remote-as 23456</command>
+					<command>address-family ipv4 unicast</command>
+					<command>exit</command>
+					<command>exit</command>
+					<command>neighbor 20.1.1.2 remote-as 300</command>
+					<command>address-family ipv4 unicast</command>
+					<command>end</command>
+				</conf-commands>
+			</equipment>
+			<equipment>
+				<equip-id>3</equip-id>
+				<conf-commands>
+					<command>configure terminal</command>
+					<command>inter Ethernet28</command>
+					<command>no switchport</command>
+					<command>ip address 20.1.1.2/24</command>
+					<command>exit</command>
+					<command>router bgp 300</command>
+					<command>neighbor 20.1.1.1 remote-as 200</command>
+                    <command>end</command>
+				</conf-commands>
+				<delay>25</delay>
+			</equipment>
+		</equipments>
+		<tests>
+			<test>
+				<equip-id>2</equip-id>
+				<test-command>
+					<command>show ip bgp summary</command>
+					<expects>
+						<expect>10.1.1.1        4 23456.*[0-9][0-9]:[0-9][0-9]:[0-9][0-9]</expect>
+                        <expect>20.1.1.2        4 300.*[0-9][0-9]:[0-9][0-9]:[0-9][0-9]</expect>
+					</expects>
+				</test-command>
+				<test-command>
+					<command>show ip bgp</command>
+					<expects>
+						<expect>\*> 192.168.1.0      10.1.1.1                 0             0 23456 i</expect>
+					</expects>
+				</test-command>
+			</test>
+			<test>
+				<equip-id>3</equip-id>
+				<test-command>
+					<command>show ip bgp</command>
+					<expects>
+						<expect>\*> 192.168.1.0      20.1.1.1                 0             0 23456 i</expect>
+					</expects>
+				</test-command>
+			</test>
+		</tests>
+	</testCase>
+</testCases>
