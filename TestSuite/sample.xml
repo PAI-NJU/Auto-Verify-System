@@ -7,7 +7,7 @@
         	<conf-commands>
             <command>configure terminal</command>
      		<command>int s0/0/0</command>
-			<command>ip address 192.168.2.1 255.255.255.0</command>
+			<command>ip address 192.168.2.3 255.255.255.0</command>
 			<command>clock rate 9600</command>
 			<command>exit</command>
 			<command>router ospf 100</command>
